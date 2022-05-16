@@ -65,7 +65,9 @@ struct LogListView: View {
                     name: log.name ?? "",
                     amount: log.amount?.doubleValue ?? 0,
                     category: Category(rawValue: log.category ?? "") ?? .food,
-                    date: log.date ?? Date()
+                    date: log.date ?? Date(),
+                    ///update the notes from here
+                    notes: log.notes ?? ""
                 )
             }
         }

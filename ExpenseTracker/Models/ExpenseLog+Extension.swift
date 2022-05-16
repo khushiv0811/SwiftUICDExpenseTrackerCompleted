@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-extension ExpenseLog: Identifiable {
+extension ExpenseLog {
     
     var categoryEnum: Category {
         Category(rawValue: category ?? "") ?? .other
@@ -64,17 +64,23 @@ extension ExpenseLog: Identifiable {
         
     }
     
-    static func predicate(with categories: [Category], searchText: String) -> NSPredicate? {
+    static func predicate(with categories: [Category], with months : [Months], searchText: String) -> NSPredicate? {
         var predicates = [NSPredicate]()
         
         if !categories.isEmpty {
             let categoriesString = categories.map { $0.rawValue }
             predicates.append(NSPredicate(format: "category IN %@", categoriesString))
         }
+        if !months.isEmpty {
+            let monthsString = months.map { $0.rawValue }
+            predicates.append(NSPredicate(format: "monthfromdate IN %@", monthsString))
+        }
         
         if !searchText.isEmpty {
             predicates.append(NSPredicate(format: "name CONTAINS[cd] %@", searchText.lowercased()))
         }
+        
+        
         
         if predicates.isEmpty {
             return nil

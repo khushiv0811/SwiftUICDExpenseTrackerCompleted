@@ -28,6 +28,15 @@ struct ContentView: View {
                     }
             }
             .tag(1)
+            
+            MonthsTabView()
+                .tabItem {
+                    VStack {
+                        Text("Monthly Summary")
+                        Image(systemName: "calendar")
+                    }
+            }
+            .tag(2)
         }
     }
 }

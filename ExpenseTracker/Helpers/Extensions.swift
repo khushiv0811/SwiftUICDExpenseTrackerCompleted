@@ -13,5 +13,20 @@ extension Double {
     var formattedCurrencyText: String {
         return Utils.numberFormatter.string(from: NSNumber(value: self)) ?? "0"
     }
+    var formattedCurrencyTextineuro: String {
+        return Utils.euronumberFormatter.string(from: NSNumber(value: self)) ?? "0"
+    }
     
+}
+
+func getmonth(_ date : Date) -> String {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "MMMM"
+    
+   
+        let month = dateFormatter.string(from: date)
+        
+        return month
+    
+   
 }

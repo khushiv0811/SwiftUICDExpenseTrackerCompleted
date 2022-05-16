@@ -1,16 +1,15 @@
 //
-//  LogsTabView.swift
+//  MonthsTabView.swift
 //  ExpenseTracker
 //
-//  Created by Alfian Losari on 19/04/20.
-//  Copyright © 2020 Alfian Losari. All rights reserved.
+//  Created by Kushboo Patel on 5/13/22.
+//  Copyright © 2022 Alfian Losari. All rights reserved.
 //
 
 import SwiftUI
 import CoreData
 
-struct LogsTabView: View {
-    
+struct MonthsTabView: View {
     @Environment(\.managedObjectContext)
         var context: NSManagedObjectContext
     
@@ -18,6 +17,7 @@ struct LogsTabView: View {
     @State private var searchBarHeight: CGFloat = 0
     @State private var sortType = SortType.date
     @State private var sortOrder = SortOrder.descending
+    
     @State var selectedmonths: Set<Months> = Set()
     @State var selectedCategories: Set<Category> = Set()
     @State var isAddFormPresented: Bool = false
@@ -25,10 +25,10 @@ struct LogsTabView: View {
     var body: some View {
         NavigationView {
             VStack(spacing: 0) {
-                SearchBar(text: $searchText, keyboardHeight: $searchBarHeight, placeholder: "Search expenses")
-                FilterCategoriesView(selectedCategories: $selectedCategories)
+                
                 Divider()
-                SelectSortOrderView(sortType: $sortType, sortOrder: $sortOrder)
+                FiltermonthsView(selectedMonths: $selectedmonths)
+                
                 Divider()
                 LogListView(predicate: ExpenseLog.predicate(with: Array(selectedCategories), with: Array(selectedmonths), searchText: searchText), sortDescriptor: ExpenseLogSort(sortType: sortType, sortOrder: sortOrder).sortDescriptor)
             }
@@ -36,8 +36,8 @@ struct LogsTabView: View {
             .sheet(isPresented: $isAddFormPresented) {
                 LogFormView(context: self.context)
             }
-            .navigationBarItems(trailing: Button(action: addTapped) { Text("Add") })
-            .navigationBarTitle("Expense Logs", displayMode: .inline)
+           
+            .navigationBarTitle("Monthly Summary", displayMode: .inline)
         }
     }
     
@@ -45,12 +45,10 @@ struct LogsTabView: View {
         isAddFormPresented = true
     }
     
-    
-    
 }
 
-struct LogsTabView_Previews: PreviewProvider {
+struct MonthsTabView_Previews: PreviewProvider {
     static var previews: some View {
-        LogsTabView()
+        MonthsTabView()
     }
 }

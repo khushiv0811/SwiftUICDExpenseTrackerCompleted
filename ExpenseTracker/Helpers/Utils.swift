@@ -20,7 +20,19 @@ struct Utils {
         let formatter = NumberFormatter()
         formatter.isLenient = true
         formatter.numberStyle = .currency
+        formatter.locale = Locale.current
         return formatter
     }()
     
+    static let euronumberFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.isLenient = true
+        formatter.numberStyle = .currency
+        formatter.locale = Locale(identifier: "fr_FR")
+        return formatter
+    }()
+    
+    
 }
+
+

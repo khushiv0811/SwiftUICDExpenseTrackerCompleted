@@ -18,6 +18,8 @@ struct LogFormView: View {
     @State var amount: Double = 0
     @State var category: Category = .utilities
     @State var date: Date = Date()
+    ///Adding option for notes here
+    @State var notes: String = ""
     
     @Environment(\.presentationMode)
     var presentationMode
@@ -32,9 +34,13 @@ struct LogFormView: View {
             Form {
                 TextField("Name", text: $name)
                     .disableAutocorrection(true)
+                ///Adding textfeild for notes here
+                TextField("Notes", text: $notes)
+                    .disableAutocorrection(true)
+                
                 TextField("Amount", value: $amount, formatter: Utils.numberFormatter)
                     .keyboardType(.numbersAndPunctuation)
-                    
+                
                 Picker(selection: $category, label: Text("Category")) {
                     ForEach(Category.allCases) { category in
                         Text(category.rawValue.capitalized).tag(category)
@@ -43,6 +49,8 @@ struct LogFormView: View {
                 DatePicker(selection: $date, displayedComponents: .date) {
                     Text("Date")
                 }
+               
+                    
             }
 
             .navigationBarItems(
@@ -73,6 +81,11 @@ struct LogFormView: View {
         log.category = self.category.rawValue
         log.amount = NSDecimalNumber(value: self.amount)
         log.date = self.date
+        let currentmonth = getmonth(self.date)
+        print(currentmonth)
+        log.monthfromdate =  currentmonth
+        log.notes = self.notes
+    
         
         do {
             try context.save()
